@@ -11,7 +11,14 @@ import java.util.List;
 
 public class FileCollection implements Collection{
 
-    private String BASE_DIR = "C:/Users/platon/Documents/subjects";
+    private String BASE_DIR;
+    public FileCollection() {
+        this("C:/Users/platon/Documents/subjects");
+    }
+
+    public FileCollection(String baseDir) {
+        BASE_DIR = baseDir;
+    }
 
     @Override
     public List<String> listSubjects() {
