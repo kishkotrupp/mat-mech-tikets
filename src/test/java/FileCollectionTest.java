@@ -54,4 +54,29 @@ public class FileCollectionTest {
         FileCollection c = new FileCollection(tempDir.resolve("empty_dir").toString());
         assertTrue(c.listSubjects().isEmpty());
     }
+    //проверяем есть ли все авторы и то что они выводятся без txt
+    @Test
+    void ListAuthorsReturnAllAuthors() throws IOException {
+        CreateVDir();
+        List<String> authors = collection.listAuthors("math");
+        Assertions.assertEquals(2, authors.size());
+        assertTrue(authors.contains("Abby"));
+        assertTrue(authors.contains("Andrey"));
+        assertFalse(authors.contains("Abby.txt"));
+    }
+    //авторов не должно быть по несуществующей папке
+    @Test
+    void ListAuthorsReturnEmptyWhenDirDosntExist() throws IOException{
+        CreateVDir();
+        List<String> authors = collection.listAuthors("doesnt_exist");
+        assertTrue(authors.isEmpty());
+    }
+    //другие форматы кроме txt должны игнорироваться
+    @Test
+    void ListAuthorsIgnoreNoTxtFormat() throws IOException{
+        CreateVDir();
+        Files.writeString(tempDir.resolve("math/VolanDeMort.md"), "не txt");
+        List<String> authors = collection.listAuthors("math");
+        assertFalse(authors.contains("VolanDeMort"));
+    }
 }
