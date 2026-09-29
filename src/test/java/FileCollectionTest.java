@@ -43,7 +43,7 @@ public class FileCollectionTest {
     }
     // создаем путь которого не существует
     @Test
-    void ListSubjectReturnEmptyWhenDirDosntExist() throws IOException{
+    void ListSubjectReturnEmptyWhenDirDoesntExist() throws IOException{
         FileCollection c = new FileCollection(tempDir.resolve("doesnt_exist").toString());
         assertTrue(c.listSubjects().isEmpty());
     }
@@ -66,7 +66,7 @@ public class FileCollectionTest {
     }
     //авторов не должно быть по несуществующей папке
     @Test
-    void ListAuthorsReturnEmptyWhenDirDosntExist() throws IOException{
+    void ListAuthorsReturnEmptyWhenDirDoesntExist() throws IOException{
         CreateVDir();
         List<String> authors = collection.listAuthors("doesnt_exist");
         assertTrue(authors.isEmpty());
